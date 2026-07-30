@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import crew1 from "../assets/crew-1.jpg";
 import crew2 from "../assets/crew-2.jpg";
@@ -18,36 +18,6 @@ const PHOTOS = [
 
 export function Crew() {
   const [lightbox, setLightbox] = useState<number | null>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  // Seamless infinite scroll driven by requestAnimationFrame. We measure the
-  // exact pixel width of the first (real) set and wrap by modulo, so the reset
-  // is invisible — no %-based rounding jerk, no rubber-band snap.
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) return;
-
-    let raf = 0;
-    let offset = 0;
-    let last = performance.now();
-    const SPEED = 60; // px per second
-
-    const step = (now: number) => {
-      const dt = (now - last) / 1000;
-      last = now;
-      offset += SPEED * dt;
-      const half = track.scrollWidth / 2; // first set = half of the doubled track
-      if (half > 0 && offset >= half) offset -= half; // wrap exactly at the seam
-      track.style.transform = `translate3d(${-offset}px, 0, 0)`;
-      raf = requestAnimationFrame(step);
-    };
-
-    raf = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(raf);
-  }, []);
 
   const close = useCallback(() => setLightbox(null), []);
   const prev = useCallback(
@@ -86,7 +56,7 @@ export function Crew() {
             "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
         }}
       >
-        <div ref={trackRef} className="flex w-max will-change-transform">
+        <div className="flex w-max crew-scroll">
           {[false, true].map((dup) =>
             PHOTOS.map((p, i) => (
               <figure
@@ -176,4 +146,3 @@ export function Crew() {
     </section>
   );
 }
-
