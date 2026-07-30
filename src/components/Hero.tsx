@@ -49,7 +49,7 @@ export function Hero() {
             </a>
           </div>
 
-          <div className="mt-14 flex items-center gap-8 text-sm text-muted-foreground sm:pl-7">
+          <div className="mt-14 flex items-center justify-center gap-8 text-sm text-muted-foreground sm:justify-start sm:pl-7">
             <div>
               <div className="text-2xl font-display text-gold">5★</div>
               <div>Google Rated</div>
