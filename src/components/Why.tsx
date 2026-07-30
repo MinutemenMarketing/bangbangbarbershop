@@ -1,135 +1,87 @@
-@import "tailwindcss";
+import {
+  Clock,
+  Baby,
+  Sparkles,
+  DoorOpen,
+  Wifi,
+  Zap,
+  Bike,
+  ParkingSquare,
+  Accessibility,
+} from "lucide-react";
 
-/*
- * Bang Bang Barbershop — Design System
- * Storefront branding: red, white, black, grey.
- * Brand red lives under the "gold" token names so utilities read cleanly.
- */
+const ITEMS = [
+  {
+    icon: Clock,
+    title: "No Long Waits",
+    body: "Multiple barbers on the floor means you're always next.",
+  },
+  {
+    icon: Baby,
+    title: "Great With Kids",
+    body: "From first haircuts to fearless toddlers, we've got them covered.",
+  },
+  {
+    icon: Sparkles,
+    title: "A Cut Above",
+    body: "Custom designs, precise fades, and a shop you'll come back to.",
+  },
+];
 
-@theme {
-  --font-display: "Anton", "Impact", sans-serif;
-  --font-sans: "DM Sans", system-ui, sans-serif;
+const AMENITIES = [
+  { icon: DoorOpen, label: "Walk-ins Welcome" },
+  { icon: Wifi, label: "Free Wi-Fi" },
+  { icon: Zap, label: "EV Charging Station" },
+  { icon: Bike, label: "Bike Parking" },
+  { icon: ParkingSquare, label: "Private Lot Parking" },
+  { icon: Accessibility, label: "Wheelchair Accessible" },
+];
 
-  --color-background: oklch(0.11 0 0);
-  --color-foreground: oklch(0.98 0 0);
-  --color-ink: oklch(0.08 0 0);
-  --color-ink-elevated: oklch(0.16 0 0);
-  --color-card: oklch(0.15 0 0);
-  --color-muted-foreground: oklch(0.72 0 0);
-  --color-border: oklch(0.3 0 0 / 0.55);
-  --color-gold: oklch(0.58 0.22 27);
-  --color-gold-soft: oklch(0.68 0.2 25);
-  --color-gold-deep: oklch(0.46 0.2 28);
-  --color-primary-foreground: oklch(0.98 0 0);
+export function Why() {
+  return (
+    <section id="why" className="relative py-28 sm:py-36">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <div className="max-w-2xl mb-16">
+          <div className="text-xs tracking-[0.3em] uppercase text-gold mb-4">Why Bang Bang</div>
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl leading-tight">
+            A neighborhood
+            <span className="gold-gradient-text italic"> institution.</span>
+          </h2>
+        </div>
 
-  --shadow-gold: 0 10px 40px -10px oklch(0.58 0.22 27 / 0.55);
-  --shadow-elegant: 0 30px 60px -20px oklch(0 0 0 / 0.7);
-}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border/60 rounded-2xl overflow-hidden border border-border">
+          {ITEMS.map(({ icon: Icon, title, body }) => (
+            <div
+              key={title}
+              className="group relative bg-card p-8 hover:bg-ink-elevated transition-colors"
+            >
+              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold to-transparent opacity-0 group-hover:opacity-60 transition-opacity" />
+              <Icon className="h-7 w-7 text-gold mb-6" strokeWidth={1.5} />
+              <h3 className="font-display text-2xl mb-3">{title}</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">{body}</p>
+            </div>
+          ))}
+        </div>
 
-@layer base {
-  * {
-    border-color: var(--color-border);
-  }
-
-  html {
-    scroll-behavior: smooth;
-    overflow-x: hidden;
-  }
-
-  body {
-    overflow-x: hidden;
-    background-color: var(--color-background);
-    color: var(--color-foreground);
-    font-family: var(--font-sans);
-    -webkit-font-smoothing: antialiased;
-    background-image:
-      radial-gradient(ellipse at 20% 0%, oklch(0.58 0.22 27 / 0.08), transparent 50%),
-      radial-gradient(ellipse at 80% 100%, oklch(0.58 0.22 27 / 0.05), transparent 50%);
-  }
-
-  h1,
-  h2,
-  h3,
-  h4 {
-    font-family: var(--font-display);
-    letter-spacing: 0em;
-    text-transform: uppercase;
-  }
-
-  :focus-visible {
-    outline: 2px solid var(--color-gold);
-    outline-offset: 3px;
-  }
-}
-
-@layer utilities {
-  .gold-gradient-text {
-    background: linear-gradient(
-      135deg,
-      var(--color-gold-soft) 0%,
-      var(--color-gold) 55%,
-      var(--color-gold-deep) 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    display: inline-block;
-    padding-right: 0.18em;
-  }
-
-  .grain::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.08;
-    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-    mix-blend-mode: overlay;
-  }
-
-  .hairline {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--color-gold) 50%, transparent);
-  }
-
-  .hero-enter {
-    animation: hero-enter 0.8s ease-out both;
-  }
-
-  @keyframes hero-enter {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .marquee {
-    animation: marquee 40s linear infinite;
-  }
-
-  @keyframes marquee {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
-  }
-
-  .crew-scroll {
-    will-change: transform;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .marquee,
-    .hero-enter {
-      animation: none;
-    }
-  }
+        <div className="mt-16">
+          <div className="text-xs tracking-[0.3em] uppercase text-gold mb-6 text-center">
+            Amenities
+          </div>
+          <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            {AMENITIES.map(({ icon: Icon, label }) => (
+              <li
+                key={label}
+                className="flex flex-col items-center justify-center text-center gap-3 rounded-xl border border-border bg-card px-4 py-6 hover:border-gold/60 transition-colors"
+              >
+                <Icon className="h-6 w-6 text-gold" strokeWidth={1.5} />
+                <span className="text-sm font-medium text-foreground/90 leading-tight">
+                  {label}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
 }
