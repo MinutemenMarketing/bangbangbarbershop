@@ -6,9 +6,15 @@ const QUOTES = [
   "Every chair is great. Professional, precise, consistent. — Robert K.",
   "Jimmy and the crew always did a great job. Great atmosphere. — Matthew L.",
   "So kind with my youngest — even calmed him down for his cut. — Yekaterina J.",
-  "Clean, modern and all the barbers are excellent. Don't hesitate, go there. — yaggi5",
+  "Clean, modern and all the barbers are excellent. Don't hesitate. — yaggi5",
   "Never much of a wait and always consistently good haircuts. — Shaun C.",
   "Been going here as long as I can remember. — Dylan E.",
+  "The talented, incredibly kind staff has always been unmatched. — Michelle L.",
+  "For my son's first haircut, this was our only choice. — Michelle L.",
+  "Eddie has been unbelievably patient, calm, and gentle. — Michelle L.",
+  "10th visit and he sat like a champ — no tears at all! — Michelle L.",
+  "The care they show clients, young and old, is something special. — Michelle L.",
+  "We'll never go anywhere else — and neither should you. — Michelle L.",
 ];
 
 function Row({ hidden = false }: { hidden?: boolean }) {
@@ -38,7 +44,7 @@ export function Marquee() {
     <div className="relative border-y border-border bg-ink overflow-hidden">
       <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-ink to-transparent z-10 pointer-events-none" />
       <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-ink to-transparent z-10 pointer-events-none" />
-      <div className="flex marquee whitespace-nowrap py-5">
+      <div className="flex w-max marquee whitespace-nowrap py-5">
         <Row />
         <Row hidden />
       </div>
